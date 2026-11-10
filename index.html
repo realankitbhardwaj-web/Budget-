@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Mera Budget</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#f4f6fb;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e6eaf2;--acc:#0f766e;--blue:#2563eb;--warn:#e11d48;--good:#059669;--track:#e9eef5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:400 16px/1.45 "Plus Jakarta Sans",system-ui,sans-serif}
+main{max-width:520px;margin:0 auto;padding:16px 16px 110px}
+button,select,input{font:inherit;color:inherit}
+.mon{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mon b{font-size:17px;font-weight:800}
+.ic{background:var(--card);border:1px solid var(--line);border-radius:12px;width:40px;height:40px;cursor:pointer;box-shadow:0 1px 2px rgba(15,23,42,.05)}
+.hero{background:linear-gradient(135deg,#0f766e,#2563eb);color:#fff;border-radius:24px;padding:22px;margin-bottom:14px;box-shadow:0 12px 28px rgba(37,99,235,.22)}
+.hero small{opacity:.85}
+.hero .big{font-size:40px;font-weight:800;line-height:1.1;margin:2px 0 4px}
+.hero .bar{background:rgba(255,255,255,.28);margin:14px 0 8px}
+.hero .bar i{background:#fff}
+.hero .bar i.over{background:#fecdd3}
+.hero .row2{display:flex;gap:18px;font-size:13px;opacity:.92;flex-wrap:wrap}
+.card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(15,23,42,.06)}
+h2{font-size:15px;margin:0 0 10px;font-weight:800}
+.bar{height:8px;background:var(--track);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);width:0;border-radius:6px}
+.seg{display:flex;height:12px;border-radius:8px;overflow:hidden;background:var(--track);margin:6px 0 10px}
+.seg i{display:block;height:100%}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--mute)}
+.leg span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:5px}
+.row{display:flex;gap:8px}
+.row>*{flex:1;min-width:0}
+label{display:block;font-size:13px;color:var(--mute);margin:12px 0 4px}
+input,select{width:100%;padding:12px;background:#f7f9fc;border:1px solid var(--line);border-radius:12px}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:12px;padding:13px 14px;font-weight:600;cursor:pointer;width:100%;margin-top:14px}
+.btn.sm{width:auto;margin:0;padding:12px 16px}
+.btn.blue{background:var(--blue)}
+.btn.out{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa}
+.ghost{background:none;border:1px dashed #cbd5e1;color:var(--mute);border-radius:12px;padding:10px;width:100%;margin-top:10px;cursor:pointer}
+.link{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;padding:8px 0 0}
+.cat{margin-bottom:12px}
+.cat .t{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px}
+.cat .bar{height:6px}
+.ex{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line);gap:8px;cursor:default}
+.ex:first-of-type{border-top:0}
+.ex small{color:var(--mute);display:block;font-size:12px}
+.ex .r{text-align:right;white-space:nowrap}
+.ex button{background:none;border:0;color:#94a3b8;font-size:20px;cursor:pointer;padding:2px 6px}
+.ex.tap{cursor:pointer}
+.gh{display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px;font-size:13px;font-weight:800}
+.gh span:first-child:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:7px}
+.pos{color:var(--good)}.neg{color:var(--warn)}
+.empty{color:var(--mute);font-size:14px;margin:0}
+.alert{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;border-radius:14px;padding:12px 14px;font-size:14px;margin-bottom:14px}
+.ef{display:flex;justify-content:space-between;align-items:baseline}
+.ef b{font-size:26px;font-weight:800}
+.hid{display:none}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+nav button{flex:1;max-width:240px;border:0;background:none;border-radius:14px;padding:10px;font-weight:600;color:var(--mute);cursor:pointer}
+nav button.on{background:#e6f4f1;color:var(--acc)}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}.ph small{color:var(--mute)}
+.pm{display:flex;align-items:center;gap:6px;margin:0;font-size:13px}.pm input{width:64px;padding:8px}
+.it{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.it span{flex:1;min-width:0}.it input{width:104px;padding:8px 10px;text-align:right}
+.it button{background:none;border:0;color:#94a3b8;font-size:20px;cursor:pointer;padding:2px 6px}
+.tot{display:flex;justify-content:space-between;padding:10px 12px;margin-top:6px;background:#eef6f5;border-radius:12px;font-weight:800;font-size:14px}
+.note{font-size:13px;margin:6px 2px 0}
+.addit{margin-top:10px}.addit .av{flex:0 0 84px}.addit .btn{flex:0 0 auto}
+.dn{display:flex;gap:16px;align-items:center}
+.donut{width:130px;height:130px;flex:0 0 130px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;text-align:center}
+.donut:after{content:"";position:absolute;inset:24px;background:#fff;border-radius:50%}
+.donut b{position:relative;z-index:1;font-size:14px;font-weight:800}
+.dleg{flex:1;min-width:0;font-size:13px}
+.dleg div{display:flex;justify-content:space-between;gap:6px;padding:2px 0}
+.dleg span:first-child:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:6px}
+.fin{margin-bottom:12px}.fin .t{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px}.fin small{color:var(--mute)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<section id="pgB">
+  <div class="mon">
+    <button class="ic" id="prev" aria-label="Pichla mahina">‹</button>
+    <b id="mlabel"></b>
+    <button class="ic" id="next" aria-label="Agla mahina">›</button>
+  </div>
+
+  <div class="hero">
+    <small>Bacha hua budget</small>
+    <div class="big" id="left">₹0</div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="row2"><span id="sSpent"></span></div>
+  </div>
+
+  <div class="alert hid" id="alert"></div>
+
+  <div class="card">
+    <h2>Is mahine ki salary</h2>
+    <div class="row">
+      <input id="sal" type="number" inputmode="decimal" min="0" placeholder="Jaise 25000">
+      <button class="btn sm" id="saveSal">Save</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Kharcha add karo</h2>
+    <label for="amt">Amount (₹)</label>
+    <input id="amt" type="number" inputmode="decimal" min="0" placeholder="0">
+    <label for="cat">Category</label>
+    <select id="cat"></select>
+    <button class="ghost" id="newCatBtn">+ Nayi category banao</button>
+    <div class="row hid" id="newCatRow" style="margin-top:8px">
+      <input id="newCat" placeholder="Category ka naam" maxlength="24">
+      <button class="btn sm" id="addCat">Add</button>
+    </div>
+    <label for="note">Note (optional)</label>
+    <input id="note" placeholder="Kis cheez ka?" maxlength="60">
+    <button class="btn" id="addExp">Kharcha add karo</button>
+  </div>
+
+  <div class="card"><h2>Category ke hisaab se</h2><div id="cats"></div></div>
+  <div class="card"><h2>Is mahine ke kharche</h2><div id="list"></div></div>
+</section>
+
+<section id="pgN" class="hid">
+  <div class="hero">
+    <small>Total net worth</small>
+    <div class="big" id="nw">₹0</div>
+    <div class="row2"><span id="nwA"></span><span id="nwD"></span></div>
+  </div>
+
+  <div class="card">
+    <h2>Paisa kahan hai</h2>
+    <div class="seg" id="seg"></div>
+    <div class="leg" id="leg"></div>
+  </div>
+
+  <div class="card">
+    <h2 id="fTitle">Holding add karo</h2>
+    <label for="hType">Type</label>
+    <select id="hType">
+      <option>Mutual Fund</option><option>Stock</option><option>Savings Account</option><option>Karz</option>
+    </select>
+    <label for="hName">Naam</label>
+    <input id="hName" placeholder="Jaise HDFC Flexi Cap, TCS, SBI Savings" maxlength="40">
+    <div class="row">
+      <div><label for="hVal">Abhi ki value (₹)</label><input id="hVal" type="number" inputmode="decimal" min="0"></div>
+      <div id="invBox"><label for="hInv">Lagaya hua (₹)</label><input id="hInv" type="number" inputmode="decimal" min="0"></div>
+    </div>
+    <button class="btn blue" id="hSave">Add karo</button>
+    <button class="link hid" id="hCancel">Edit cancel karo</button>
+  </div>
+
+  <div class="card"><div id="holds"></div></div>
+</section>
+
+<section id="pgR" class="hid">
+  <div class="hero">
+    <small>Investment roadmap</small>
+    <div class="big" id="rTitle" style="font-size:28px"></div>
+    <div class="bar"><i id="rBar"></i></div>
+    <div class="row2"><span id="rSub"></span><span id="rStat"></span></div>
+    <button class="btn" id="doneBtn" style="background:#fff;color:#0f766e">✓ Is mahine ka plan follow kiya</button>
+  </div>
+  <div class="card"><h2>Timeline</h2><div class="seg" id="tl"></div><div class="leg" id="tlLeg"></div></div>
+  <div class="card"><h2 id="dTitle">Monthly cash flow</h2><div class="dn"><div class="donut" id="donut"><b id="dCenter"></b></div><div class="dleg" id="dLeg"></div></div></div>
+  <div id="phases"></div>
+  <div class="card"><h2>Final capital targets</h2><div id="finals"></div></div>
+  <div class="card"><h2>Plan settings</h2>
+    <div class="row"><div><label for="pStart">Plan start mahina</label><input id="pStart" type="month"></div><div><label for="pSal">Monthly salary (₹)</label><input id="pSal" type="number" inputmode="decimal"></div></div>
+  </div>
+</section>
+</main>
+
+<nav>
+  <button id="tB" class="on">💸 Budget</button>
+  <button id="tN">📈 Net Worth</button>
+  <button id="tR">🎯 Plan</button>
+</nav>
+
+<script>
+(function(){
+  var KEY="mera-budget-v1";
+  var S={salaries:{},cats:["Ration","Kiraya","Bijli/Paani","Petrol/Travel","Bachche/Padhai","Dawai","Bahar ka khana","Mobile/Recharge","Bachat/SIP","Anya"],exp:[],ef:0,efLog:[],hold:[],plan:null,rdone:{}};
+  try{var raw=localStorage.getItem(KEY);if(raw){var p=JSON.parse(raw);if(p&&typeof p==="object"){for(var k in p)S[k]=p[k];}}}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  var d=new Date(),cur=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"),editId=null;
+  var $=function(i){return document.getElementById(i)};
+  var MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var COL={"Mutual Fund":"#2563eb","Stock":"#7c3aed","Savings Account":"#0f766e","Emergency Fund":"#f59e0b","Karz":"#e11d48"};
+  var ORDER=["Mutual Fund","Stock","Savings Account","Karz"];
+  function inr(n){return (n<0?"-":"")+"₹"+Math.round(Math.abs(n)).toLocaleString("en-IN")}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function today(){var t=new Date();return t.getDate()+" "+MN[t.getMonth()]}
+  function shift(k,n){var a=k.split("-"),dt=new Date(+a[0],+a[1]-1+n,1);return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")}
+  function sum(a,f){return a.reduce(function(s,x){return s+f(x)},0)}
+
+  function renderBudget(){
+    var a=cur.split("-");$("mlabel").textContent=MN[+a[1]-1]+" "+a[0];
+    var sal=S.salaries[cur]||0;$("sal").value=sal||"";
+    var items=S.exp.filter(function(e){return e.m===cur});
+    var spent=sum(items,function(e){return e.amt});
+    var avail=sal,left=avail-spent;
+    $("left").textContent=inr(left);
+    $("bar").style.width=(avail>0?Math.min(100,spent/avail*100):(spent>0?100:0))+"%";
+    $("bar").className=left<0?"over":"";
+    $("sSpent").textContent="Kharch "+inr(spent)+" / "+inr(avail);
+    var al=$("alert");
+    if(left<0){al.classList.remove("hid");al.textContent="Budget "+inr(-left)+" se zyada ho gaya.";}
+    else al.classList.add("hid");
+    var cv=$("cat").value;
+    $("cat").innerHTML=S.cats.map(function(c){return "<option>"+esc(c)+"</option>"}).join("");
+    if(S.cats.indexOf(cv)>-1)$("cat").value=cv;
+    var tot={};items.forEach(function(e){tot[e.cat]=(tot[e.cat]||0)+e.amt});
+    var keys=Object.keys(tot).sort(function(x,y){return tot[y]-tot[x]});
+    $("cats").innerHTML=keys.length?keys.map(function(c){
+      var w=spent?tot[c]/spent*100:0;
+      return '<div class="cat"><div class="t"><span>'+esc(c)+'</span><b>'+inr(tot[c])+'</b></div><div class="bar"><i style="width:'+w+'%"></i></div></div>'}).join(""):'<p class="empty">Abhi koi kharcha nahi.</p>';
+    $("list").innerHTML=items.length?items.slice().reverse().map(function(e){
+      return '<div class="ex"><div><b>'+esc(e.cat)+'</b><small>'+esc(e.note||"")+' '+esc(e.d)+'</small></div><div class="r"><b>'+inr(e.amt)+'</b><button data-id="'+e.id+'" aria-label="Delete">×</button></div></div>'}).join(""):'<p class="empty">Upar se pehla kharcha add karo.</p>';
+  }
+
+  function renderNet(){
+    var assets=S.hold.filter(function(h){return h.type!=="Karz"}),debts=S.hold.filter(function(h){return h.type==="Karz"});
+    var A=sum(assets,function(h){return h.val}),D=sum(debts,function(h){return h.val});
+    $("nw").textContent=inr(A-D);$("nwA").textContent="Assets "+inr(A);$("nwD").textContent=D?"Karz "+inr(D):"";
+    var by={};assets.forEach(function(h){by[h.type]=(by[h.type]||0)+h.val});
+    var types=["Mutual Fund","Stock","Savings Account"].filter(function(t){return by[t]>0});
+    $("seg").innerHTML=types.map(function(t){return '<i style="width:'+(by[t]/A*100)+'%;background:'+COL[t]+'"></i>'}).join("");
+    $("leg").innerHTML=types.length?types.map(function(t){return '<span style="--c:'+COL[t]+'">'+t+' '+Math.round(by[t]/A*100)+'%</span>'}).join(""):'<span style="--c:#cbd5e1">Abhi kuch add nahi hua</span>';
+    var html="";
+    ORDER.forEach(function(t){
+      var it=S.hold.filter(function(h){return h.type===t});if(!it.length)return;
+      html+='<div class="gh" style="--c:'+COL[t]+'"><span>'+t+'</span><span>'+inr(sum(it,function(h){return h.val}))+'</span></div>';
+      it.forEach(function(h){
+        var sub=esc(h.d||"");
+        if(h.inv>0&&(t==="Mutual Fund"||t==="Stock")){var g=h.val-h.inv,pc=g/h.inv*100;sub='Lagaya '+inr(h.inv)+' &nbsp;<span class="'+(g>=0?"pos":"neg")+'">'+(g>=0?"+":"")+inr(g)+' ('+pc.toFixed(1)+'%)</span>'}
+        html+='<div class="ex tap" data-edit="'+h.id+'"><div><b>'+esc(h.name)+'</b><small>'+sub+'</small></div><div class="r"><b>'+inr(h.val)+'</b><button data-del="'+h.id+'" aria-label="Delete">×</button></div></div>';
+      });
+    });
+    $("holds").innerHTML=html||'<p class="empty">Mutual fund, stock ya savings account add karo, net worth yahin dikhega.</p>';
+  }
+  var PC=["#2563eb","#7c3aed","#0f766e","#f59e0b","#e11d48","#0891b2","#65a30d"];
+  function nk(){var t=new Date();return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")}
+  function md(a,b){var x=a.split("-"),y=b.split("-");return (+y[0]-+x[0])*12+(+y[1]-+x[1])}
+  function tail(){return [{n:"Travel",a:3000},{n:"Wife Pocket Money",a:1000},{n:"Slice Bank (Emergency)",a:3000}]}
+  function defPlan(){return {start:nk(),sal:30000,phases:[
+    {name:"Phase 1",sub:"P2P + Safurns build-up",m:7,items:[{n:"LenDenClub (P2P)",a:15000},{n:"Safurns",a:3000},{n:"MF + ETF SIP",a:5000}].concat(tail())},
+    {name:"Phase 2",sub:"Bonds + Safurns",m:7,items:[{n:"Bonds",a:15000},{n:"Safurns",a:3000},{n:"MF + ETF SIP",a:5000}].concat(tail())},
+    {name:"Phase 3",sub:"P2P growth + higher SIP",m:16,items:[{n:"LenDenClub (P2P)",a:15000},{n:"MF + ETF SIP",a:8000}].concat(tail())}]}}
+  function phaseAt(P,i){var c=0;for(var j=0;j<P.phases.length;j++){var s=c;c+=P.phases[j].m;if(i<c)return {j:j,mo:i-s+1}}return null}
+  function renderPlan(){
+    if(!S.plan||!S.plan.phases)S.plan=defPlan();
+    var P=S.plan,N=sum(P.phases,function(p){return p.m}),i=md(P.start,nk()),at=(i>=0&&i<N)?phaseAt(P,i):null;
+    var doneN=0,inv={},tot={},invT=0;
+    for(var x=0;x<N;x++){if(S.rdone[shift(P.start,x)]){doneN++;var q=phaseAt(P,x);P.phases[q.j].items.forEach(function(it){inv[it.n]=(inv[it.n]||0)+it.a;invT+=it.a})}}
+    P.phases.forEach(function(p){p.items.forEach(function(it){tot[it.n]=(tot[it.n]||0)+it.a*p.m})});
+    $("rTitle").textContent=at?P.phases[at.j].name+", mahina "+at.mo+"/"+P.phases[at.j].m:(i<0?"Plan jald shuru hoga":"Plan complete");
+    $("rBar").style.width=(N?doneN/N*100:0)+"%";
+    $("rSub").textContent=at?"Kul mahina "+(i+1)+" / "+N:N+" mahine ka plan";
+    $("rStat").textContent=doneN+" mahine follow kiye, "+inr(invT)+" jama";
+    var db=$("doneBtn");db.classList.toggle("hid",!at);db.textContent=S.rdone[nk()]?"Is mahine ka tick hatao":"✓ Is mahine ka plan follow kiya";
+    $("pStart").value=P.start;$("pSal").value=P.sal||"";
+    $("tl").innerHTML=P.phases.map(function(p,j){return '<i style="width:'+(p.m/N*100)+'%;background:'+PC[j%PC.length]+';opacity:'+(!at||at.j===j?1:.35)+'"></i>'}).join("");
+    $("tlLeg").innerHTML=P.phases.map(function(p,j){return '<span style="--c:'+PC[j%PC.length]+'">'+esc(p.name)+' ('+p.m+' mahine)</span>'}).join("");
+    var ph=P.phases[at?at.j:0],T=sum(ph.items,function(it){return it.a}),acc=0,st=[];
+    ph.items.forEach(function(it,k){var s=T?acc/T*100:0;acc+=it.a;st.push(PC[k%PC.length]+" "+s+"% "+(T?acc/T*100:0)+"%")});
+    $("donut").style.background=T?"conic-gradient("+st.join(",")+")":"#e9eef5";
+    $("dCenter").innerHTML=inr(T)+"<br><small style='font-weight:400;color:#64748b'>per month</small>";
+    $("dTitle").textContent=ph.name+" ka monthly cash flow";
+    $("dLeg").innerHTML=ph.items.map(function(it,k){return '<div><span style="--c:'+PC[k%PC.length]+'">'+esc(it.n)+'</span><b>'+inr(it.a)+'</b></div>'}).join("");
+    $("phases").innerHTML=P.phases.map(function(p,j){
+      var T2=sum(p.items,function(it){return it.a}),df=(P.sal||0)-T2;
+      var msg=df===0?'<span class="pos">Poori salary allocate ✓</span>':df>0?'<span class="neg">'+inr(df)+' abhi allocate nahi</span>':'<span class="neg">Salary se '+inr(-df)+' zyada</span>';
+      return '<div class="card"><div class="ph"><div><h2 style="margin:0">'+esc(p.name)+'</h2><small>'+esc(p.sub||"")+'</small></div><label class="pm">Mahine <input type="number" min="1" data-pm="'+j+'" value="'+p.m+'"></label></div>'+
+        p.items.map(function(it,k){return '<div class="it"><span>'+esc(it.n)+'</span><input type="number" inputmode="decimal" data-p="'+j+'" data-i="'+k+'" value="'+it.a+'"><button data-del="'+j+':'+k+'" aria-label="Delete">×</button></div>'}).join("")+
+        '<div class="tot"><span>Total monthly</span><b>'+inr(T2)+'</b></div><div class="note">'+msg+'</div>'+
+        '<div class="addit row"><input class="an" placeholder="Naya item" maxlength="30"><input class="av" type="number" inputmode="decimal" placeholder="₹"><button class="btn sm blue" data-add="'+j+'">Add</button></div></div>'}).join("");
+    var names=Object.keys(tot).sort(function(a,b){return tot[b]-tot[a]}),grand=sum(names,function(n){return tot[n]});
+    $("finals").innerHTML=names.map(function(n,k){var done=inv[n]||0;return '<div class="fin"><div class="t"><span>'+esc(n)+'</span><b>'+inr(tot[n])+'</b></div><div class="bar"><i style="width:'+(tot[n]?Math.min(100,done/tot[n]*100):0)+'%;background:'+PC[k%PC.length]+'"></i></div><small>Ab tak '+inr(done)+'</small></div>'}).join("")+'<div class="tot"><span>Total planned capital</span><b>'+inr(grand)+'</b></div>';
+  }
+  function render(){renderBudget();renderNet();renderPlan();}
+
+  var PG=["pgB","pgN","pgR"],TB=["tB","tN","tR"];
+  function tab(n){PG.forEach(function(id,j){$(id).classList.toggle("hid",j!==n);$(TB[j]).classList.toggle("on",j===n)});window.scrollTo(0,0);}
+  $("tB").onclick=function(){tab(0)};$("tN").onclick=function(){tab(1)};$("tR").onclick=function(){tab(2)};
+  $("prev").onclick=function(){cur=shift(cur,-1);render()};
+  $("next").onclick=function(){cur=shift(cur,1);render()};
+  $("saveSal").onclick=function(){var v=parseFloat($("sal").value);if(!(v>=0))return;S.salaries[cur]=v;save();render();};
+  $("newCatBtn").onclick=function(){$("newCatRow").classList.toggle("hid");$("newCat").focus();};
+  $("addCat").onclick=function(){
+    var n=$("newCat").value.trim();if(!n)return;
+    var ex=S.cats.filter(function(c){return c.toLowerCase()===n.toLowerCase()})[0];
+    if(!ex){S.cats.push(n);ex=n;}
+    save();render();$("cat").value=ex;$("newCat").value="";$("newCatRow").classList.add("hid");
+  };
+  $("addExp").onclick=function(){
+    var v=parseFloat($("amt").value);if(!(v>0)){$("amt").focus();return;}
+    S.exp.push({id:Date.now()+"",m:cur,cat:$("cat").value,amt:v,note:$("note").value.trim(),d:today()});
+    $("amt").value="";$("note").value="";save();render();
+  };
+  $("pgB").onclick=function(e){
+    var t=e.target,id=t.getAttribute&&t.getAttribute("data-id");
+    if(id){S.exp=S.exp.filter(function(x){return x.id!==id});save();render();}
+  };
+  function invShow(){$("invBox").classList.toggle("hid",["Mutual Fund","Stock"].indexOf($("hType").value)<0)}
+  $("hType").onchange=invShow;
+  function resetForm(){editId=null;$("hName").value="";$("hVal").value="";$("hInv").value="";$("fTitle").textContent="Holding add karo";$("hSave").textContent="Add karo";$("hCancel").classList.add("hid");invShow();}
+  $("hCancel").onclick=resetForm;
+  $("hSave").onclick=function(){
+    var n=$("hName").value.trim(),v=parseFloat($("hVal").value),i=parseFloat($("hInv").value)||0;
+    if(!n||!(v>=0)){(n?$("hVal"):$("hName")).focus();return;}
+    var o={type:$("hType").value,name:n,val:v,inv:i,d:"Update: "+today()};
+    if(editId){S.hold=S.hold.map(function(h){return h.id===editId?Object.assign({id:editId},o):h});}
+    else{o.id=Date.now()+"";S.hold.push(o);}
+    save();resetForm();render();
+  };
+  $("holds").onclick=function(e){
+    var t=e.target,del=t.getAttribute("data-del");
+    if(del){S.hold=S.hold.filter(function(h){return h.id!==del});if(editId===del)resetForm();save();render();return;}
+    var row=t.closest&&t.closest("[data-edit]");if(!row)return;
+    var h=S.hold.filter(function(x){return x.id===row.getAttribute("data-edit")})[0];if(!h)return;
+    editId=h.id;$("hType").value=h.type;$("hName").value=h.name;$("hVal").value=h.val;$("hInv").value=h.inv||"";
+    $("fTitle").textContent="Value update karo";$("hSave").textContent="Update karo";$("hCancel").classList.remove("hid");invShow();
+    $("hName").scrollIntoView({behavior:"smooth",block:"center"});
+  };
+  $("doneBtn").onclick=function(){var k=nk();if(S.rdone[k])delete S.rdone[k];else S.rdone[k]=1;save();renderPlan();};
+  $("pStart").onchange=function(){if($("pStart").value){S.plan.start=$("pStart").value;save();renderPlan();}};
+  $("pSal").onchange=function(){var v=parseFloat($("pSal").value);S.plan.sal=v>=0?v:0;save();renderPlan();};
+  $("phases").onchange=function(e){
+    var t=e.target,p=t.getAttribute("data-p"),k=t.getAttribute("data-i"),pm=t.getAttribute("data-pm"),v=parseFloat(t.value);if(!(v>=0))v=0;
+    if(p!==null&&k!==null)S.plan.phases[p].items[k].a=v;
+    else if(pm!==null)S.plan.phases[pm].m=Math.max(1,Math.round(v));
+    else return;
+    save();renderPlan();
+  };
+  $("phases").onclick=function(e){
+    var t=e.target,dl=t.getAttribute("data-del"),ad=t.getAttribute("data-add");
+    if(dl){var a=dl.split(":");S.plan.phases[a[0]].items.splice(+a[1],1);save();renderPlan();return;}
+    if(ad!==null){var box=t.closest(".addit"),n=box.querySelector(".an").value.trim(),v=parseFloat(box.querySelector(".av").value);if(!n||!(v>=0))return;S.plan.phases[ad].items.push({n:n,a:v});save();renderPlan();}
+  };
+  invShow();render();
+})();
+</script>
+</body>
+</html>
